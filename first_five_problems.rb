@@ -4,17 +4,19 @@
 # get 3, 5, 6 and 9. The sum of these multiples is 23.
 # Find the sum of all the multiples of 3 or 5 below 1000.
 
-def multiple_of_three_and_five(number)
+def multiple_of_three_and_five(limit)
   multiples = []
   
-  (3...number).each do |n|
-    if n % 3 == 0 || n % 5 == 0
-      multiples << n
+  (3...limit).each do |number|
+    if number % 3 == 0 || number % 5 == 0
+      multiples << number
     end
   end
 
   multiples.inject(:+)
 end
+
+multiple_of_three_and_five(1000)
 
 # Problem 2 - Even Fibonacci numbers
 
@@ -24,13 +26,43 @@ end
 # By considering the terms in the Fibonacci sequence whose values do not 
 # exceed four million, find the sum of the even-valued terms.
 
-def even_fibonacci
+def even_fibonacci(limit)
   start = [1, 2]
 
-  while start[-1] < 4e6
+  while start[-1] < limit
     start << start[-1] + start[-2]
   end
 
-  p start.select { |number| number.even? }.inject(:+)
+  start.select { |number| number.even? }.inject(:+)
 end
 
+even_fibonacci(4e6)
+
+# Problem 3 - Largest prime factor
+
+# The prime factors of 13195 are 5, 7, 13 and 29.
+# What is the largest prime factor of the number 600851475143 ?
+
+def largest_prime(number)
+  primes = []
+  limit = Math.sqrt(number).floor
+  
+  (2..limit).each do |n|
+    if number % n == 0 && isPrime?(n)
+      primes << n
+    end
+  end
+
+  primes.max
+end
+
+def isPrime?(number)
+  limit = Math.sqrt(number).floor
+
+  (2..limit).each do |n|
+    return false if number % n == 0
+  end
+  true
+end
+
+largest_prime(600851475143)
