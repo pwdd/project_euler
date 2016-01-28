@@ -25,6 +25,12 @@ end
 # exceed four million, find the sum of the even-valued terms.
 
 def even_fibonacci
-  
+  start = [1, 2]
 
+  while start[-1] < 4e6
+    start << start[-1] + start[-2]
+  end
+
+  p start.select { |number| number.even? }.inject(:+)
 end
+
