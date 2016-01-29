@@ -81,8 +81,32 @@ def largest_palindrome(min, max)
   palindromes.max
 end
 
-p largest_palindrome(100, 1000)
+largest_palindrome(100, 1000)
 
+# Problem 5 - Smallest multiple
 
+# 2520 is the smallest number that can be divided by each of the numbers from 
+# 1 to 10 without any remainder.
+# What is the smallest positive number that is evenly divisible by all of the 
+# numbers from 1 to 20?
 
+def smallest_multiple
+  multiples = 1
+  array = (1..20).to_a
+  primes = array.select { |number| Prime.prime?(number) }
 
+  primes.each do |p|
+    multiples *= p ** max_power(p, 20)
+  end
+  multiples
+end
+
+def max_power(number, limit)
+  power = []
+  array = (2..limit).to_a
+
+  array.each do |n|
+    power << n if number ** n < limit
+  end
+  power.max || 1
+end
