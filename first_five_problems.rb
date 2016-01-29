@@ -1,3 +1,4 @@
+require 'prime'
 # Problem 1 - Multiple of 3 and 5
 
 # If we list all the natural numbers below 10 that are multiples of 3 or 5, we 
@@ -48,7 +49,7 @@ def largest_prime(number)
   limit = Math.sqrt(number).floor
   
   (2..limit).each do |n|
-    if number % n == 0 && isPrime?(n)
+    if number % n == 0 && Prime.prime?(n)
       primes << n
     end
   end
@@ -56,13 +57,32 @@ def largest_prime(number)
   primes.max
 end
 
-def isPrime?(number)
-  limit = Math.sqrt(number).floor
+largest_prime(600851475143)
 
-  (2..limit).each do |n|
-    return false if number % n == 0
+# Problem 4 - Largest palindrome product
+
+# A palindromic number reads the same both ways. The largest palindrome made 
+# from the product of two 2-digit numbers is 9009 = 91 × 99.
+# Find the largest palindrome made from the product of two 3-digit numbers.
+
+def largest_palindrome(min, max)
+  products = []
+  palindromes = []
+  three_digits_comb = (min...max).to_a.combination(2).to_a
+
+  three_digits_comb.each do |comb|
+    products << (comb[0] * comb[1]).to_s
   end
-  true
+
+  products.each do |string|
+    palindromes << string.to_i if string == string.reverse
+  end
+
+  palindromes.max
 end
 
-largest_prime(600851475143)
+p largest_palindrome(100, 1000)
+
+
+
+
